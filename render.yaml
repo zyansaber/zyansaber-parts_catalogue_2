@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: parts-catalogue
+    env: static
+    buildCommand: cd /opt/render/project/src && npm install -g pnpm && pnpm install --no-frozen-lockfile && pnpm run build
+    staticPublishPath: /opt/render/project/src/dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: PNPM_FLAGS
+        value: "--no-frozen-lockfile"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
